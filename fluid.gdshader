@@ -7,7 +7,9 @@ uniform sampler2D NORMAL_TEX : hint_normal_roughness_texture, repeat_disable, fi
 uniform float SIGMA: hint_range(0.1, 20.0) = 3.3;
 uniform float RESOLUTION: hint_range(0.1, 20.0) = 3.3;
 
-float gaussianDistribution(float x, float STD){ // STD stands for standard deviation
+// https://godotshaders.com/shader/gaussian-blur-2/
+
+float gaussian_distribution(float x, float STD){ // STD stands for standard deviation
 	return exp(-(x*x)/(2.*STD*STD))/(sqrt(2.*PI)*STD);
 }
 
@@ -24,7 +26,7 @@ vec3 blurred_normal(vec2 pos, vec2 pixel_size, float sigmaUsed) {
 			vec2 offset = vec2(float(x), float(y)) * pixel_size;
 			vec2 changedPos = pos + offset;
 
-			float weight = gaussianDistribution(float(x), sigmaUsed) * gaussianDistribution(float(y), sigmaUsed);
+			float weight = gaussian_distribution(float(x), sigmaUsed) * gaussian_distribution(float(y), sigmaUsed);
 
 			blurredPixel += texture(NORMAL_TEX, changedPos).rgb * weight;
 			total_weight += weight;
@@ -41,14 +43,9 @@ void fragment() {
 
     screen_normal = screen_normal * 2.0 - 1.0;
 
-	if (screen_normal.z < 0.0) {
-
+	if (screen_normal.z < 0.0)
 		discard;
 
-	}
-
-	vec3 world_normal = (INV_VIEW_MATRIX * vec4(screen_normal, 0.0)).xyz;
-
 	ALBEDO = vec3(1.0, 0.0, 0.0);
-    NORMAL = world_normal;
+    NORMAL = screen_normal;
 }
