@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://djvmup11ahmuv"]
+
+[ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://fluid.gdshader" id="1_ombjd"]
+[ext_resource type="Shader" uid="uid://ibp7qiflnfgd" path="res://quad_sphere.gdshader" id="2_xs6gy"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_3253y"]
+subdivide_width = 1
+subdivide_depth = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u3cyc"]
+render_priority = 5
+shader = ExtResource("1_ombjd")
+shader_parameter/SIGMA = 6.0
+shader_parameter/RESOLUTION = 3.0
+shader_parameter/BASE_COLOR = Color(0.946883, 0.443472, 7.70092e-07, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3253y"]
+render_priority = 10
+next_pass = SubResource("ShaderMaterial_u3cyc")
+shader = ExtResource("2_xs6gy")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_u3cyc"]
+radius = 0.4
+
+[node name="LiquidParticle" type="RigidBody3D"]
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_3253y")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_3253y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_u3cyc")

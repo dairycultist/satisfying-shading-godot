@@ -1,36 +1,29 @@
-[gd_scene load_steps=6 format=3 uid="uid://bq25ied8dcalx"]
+[gd_scene load_steps=4 format=3 uid="uid://bq25ied8dcalx"]
 
-[ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://fluid.gdshader" id="1_ulcgi"]
-[ext_resource type="Shader" uid="uid://ibp7qiflnfgd" path="res://quad_sphere.gdshader" id="2_nxogm"]
+[ext_resource type="Script" uid="uid://oiy3vb8hbk62" path="res://liquid_controller.gd" id="1_ulcgi"]
 
-[sub_resource type="QuadMesh" id="QuadMesh_3253y"]
-subdivide_width = 1
-subdivide_depth = 1
+[sub_resource type="PlaneMesh" id="PlaneMesh_ulcgi"]
+size = Vector2(5, 5)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u3cyc"]
-render_priority = 5
-shader = ExtResource("1_ulcgi")
-shader_parameter/SIGMA = 6.0
-shader_parameter/RESOLUTION = 3.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_3253y"]
-render_priority = 10
-next_pass = SubResource("ShaderMaterial_u3cyc")
-shader = ExtResource("2_nxogm")
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nxogm"]
 
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.129909, 0.776867, -0.616117, 0.865209, 0.39232, 0.312249, 0.484291, -0.492506, -0.723118, 1.54184, 1.39902, -0.0753908)
+transform = Transform3D(0.487641, -0.803317, -0.341889, 0.714035, 0.141641, 0.685632, -0.502355, -0.578464, 0.642666, 1.54184, 1.39902, -0.0753908)
 
-[node name="OozeParticle" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.00338594, 0, 0.999994, 0, 1, 0, -0.999994, 0, -0.00338594, -1.43215, 0.889336, -0.0194376)
-mesh = SubResource("QuadMesh_3253y")
-skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_3253y")
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.650469, 0.759532, 0, -0.759532, 0.650469, 0, 3.03918, 2.92355)
 
-[node name="OozeParticle2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-0.00338594, 0, 0.999994, 0, 1, 0, -0.999994, 0, -0.00338594, -0.760021, 0.889, 0)
-mesh = SubResource("QuadMesh_3253y")
+[node name="LiquidController" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_ulcgi")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_ulcgi")
 skeleton = NodePath("")
-surface_material_override/0 = SubResource("ShaderMaterial_3253y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("WorldBoundaryShape3D_nxogm")
