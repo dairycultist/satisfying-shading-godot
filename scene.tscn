@@ -1,44 +1,37 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq25ied8dcalx"]
+[gd_scene load_steps=6 format=3 uid="uid://bq25ied8dcalx"]
 
 [ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://fluid.gdshader" id="1_ulcgi"]
 [ext_resource type="Shader" uid="uid://ibp7qiflnfgd" path="res://quad_sphere.gdshader" id="2_nxogm"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_nxogm"]
+[sub_resource type="QuadMesh" id="QuadMesh_3253y"]
+subdivide_width = 1
+subdivide_depth = 1
+orientation = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u3cyc"]
 render_priority = 5
 shader = ExtResource("1_ulcgi")
-shader_parameter/SIGMA = 5.0
-shader_parameter/RESOLUTION = 5.0
+shader_parameter/SIGMA = 6.0
+shader_parameter/RESOLUTION = 3.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3253y"]
 render_priority = 10
 next_pass = SubResource("ShaderMaterial_u3cyc")
 shader = ExtResource("2_nxogm")
 
-[sub_resource type="QuadMesh" id="QuadMesh_3253y"]
-orientation = 0
-
 [node name="Node3D" type="Node3D"]
 
-[node name="MAKE THIS THICK OOZE" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_nxogm")
-surface_material_override/0 = SubResource("ShaderMaterial_3253y")
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.716076, 0, 0)
-mesh = SubResource("SphereMesh_nxogm")
-surface_material_override/0 = SubResource("ShaderMaterial_3253y")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.716076, 0.736084, 0)
-mesh = SubResource("SphereMesh_nxogm")
-surface_material_override/0 = SubResource("ShaderMaterial_3253y")
-
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="MeshInstance3D3"]
-transform = Transform3D(-0.00338594, 0, 0.999994, 0, 1, 0, -0.999994, 0, -0.00338594, -0.716076, 0.736084, 0)
-mesh = SubResource("QuadMesh_3253y")
-surface_material_override/0 = SubResource("ShaderMaterial_3253y")
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.808159, -0.0558127, -0.586314, 0.254166, -0.864981, 0.432675, -0.531299, -0.498691, -0.684856, 1.15333, 1.76391, 0)
+transform = Transform3D(-0.129909, 0.776867, -0.616117, 0.865209, 0.39232, 0.312249, 0.484291, -0.492506, -0.723118, 1.54184, 1.39902, -0.0753908)
+
+[node name="OozeParticle" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.00338594, 0, 0.999994, 0, 1, 0, -0.999994, 0, -0.00338594, -1.43215, 0.889336, -0.0194376)
+mesh = SubResource("QuadMesh_3253y")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_3253y")
+
+[node name="OozeParticle2" type="MeshInstance3D" parent="."]
+transform = Transform3D(-0.00338594, 0, 0.999994, 0, 1, 0, -0.999994, 0, -0.00338594, -0.760021, 0.889, 0)
+mesh = SubResource("QuadMesh_3253y")
+skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_3253y")

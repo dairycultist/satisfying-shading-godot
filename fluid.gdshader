@@ -37,10 +37,17 @@ vec3 blurred_normal(vec2 pos, vec2 pixel_size, float sigmaUsed) {
     return blurredPixel;
 }
 
-void fragment() {
+varying float x;
+varying float y;
 
-	float x = (UV.x - 0.5) * 2.0;
-	float y = (UV.y - 0.5) * 2.0;
+void vertex() {
+	x = (UV.x - 0.5) * 2.0;
+	y = (UV.y - 0.5) * 2.0;
+
+	VERTEX.x += (1.0 - sqrt(x * x + y * y)) / 10.0;
+}
+
+void fragment() {
 
 	if (x * x + y * y > 1.0)
 		discard;
