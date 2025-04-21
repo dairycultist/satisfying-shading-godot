@@ -39,6 +39,12 @@ vec3 blurred_normal(vec2 pos, vec2 pixel_size, float sigmaUsed) {
 
 void fragment() {
 
+	float x = (UV.x - 0.5) * 2.0;
+	float y = (UV.y - 0.5) * 2.0;
+
+	if (x * x + y * y > 1.0)
+		discard;
+
 	vec3 screen_normal = blurred_normal(SCREEN_UV, RESOLUTION / VIEWPORT_SIZE, SIGMA);
 
     screen_normal = screen_normal * 2.0 - 1.0;
