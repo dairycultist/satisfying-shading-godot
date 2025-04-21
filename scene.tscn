@@ -10,7 +10,7 @@ size = Vector2(5, 5)
 [node name="Node3D" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.487641, -0.803317, -0.341889, 0.714035, 0.141641, 0.685632, -0.502355, -0.578464, 0.642666, 1.54184, 1.39902, -0.0753908)
+transform = Transform3D(0.665778, 0.165538, -0.727555, 0.714035, 0.141641, 0.685633, 0.216549, -0.975979, -0.0238984, 1.54184, 1.39902, -0.052376)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.650469, 0.759532, 0, -0.759532, 0.650469, 0, 3.03918, 2.92355)
@@ -22,6 +22,7 @@ script = ExtResource("1_ulcgi")
 [node name="Floor" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.70733)
 mesh = SubResource("PlaneMesh_ulcgi")
 skeleton = NodePath("")
 
