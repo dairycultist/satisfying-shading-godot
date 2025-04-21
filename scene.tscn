@@ -6,7 +6,6 @@
 [sub_resource type="QuadMesh" id="QuadMesh_3253y"]
 subdivide_width = 1
 subdivide_depth = 1
-orientation = 0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u3cyc"]
 render_priority = 5
