@@ -1,31 +1,34 @@
-[gd_scene load_steps=7 format=3 uid="uid://bq25ied8dcalx"]
+[gd_scene load_steps=6 format=3 uid="uid://bq25ied8dcalx"]
 
 [ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://fluid.gdshader" id="1_ulcgi"]
 [ext_resource type="Shader" uid="uid://na3yqby2qg2p" path="res://flat.gdshader" id="2_nxogm"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_nxogm"]
+[sub_resource type="SphereMesh" id="SphereMesh_nxogm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_u3cyc"]
 render_priority = 5
 shader = ExtResource("1_ulcgi")
-shader_parameter/SIGMA = 6.0
-shader_parameter/RESOLUTION = 4.0
+shader_parameter/SIGMA = 3.307
+shader_parameter/RESOLUTION = 4.936
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3253y"]
 render_priority = 10
 next_pass = SubResource("ShaderMaterial_u3cyc")
 shader = ExtResource("2_nxogm")
 
-[sub_resource type="SphereMesh" id="SphereMesh_nxogm"]
-
 [node name="Node3D" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("BoxMesh_nxogm")
+mesh = SubResource("SphereMesh_nxogm")
+surface_material_override/0 = SubResource("ShaderMaterial_3253y")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.716076, 0, 0)
+mesh = SubResource("SphereMesh_nxogm")
 surface_material_override/0 = SubResource("ShaderMaterial_3253y")
 
 [node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.196156, 0.342212, -0.538407)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.716076, 0.736084, 0)
 mesh = SubResource("SphereMesh_nxogm")
 surface_material_override/0 = SubResource("ShaderMaterial_3253y")
 

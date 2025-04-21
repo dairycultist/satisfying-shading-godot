@@ -43,9 +43,6 @@ void fragment() {
 
     screen_normal = screen_normal * 2.0 - 1.0;
 
-	if (screen_normal.z < 0.0)
-		discard;
-
 	ALBEDO = vec3(1.0, 0.0, 0.0);
     NORMAL = screen_normal;
 }
