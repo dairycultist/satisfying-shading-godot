@@ -3,6 +3,7 @@ render_mode depth_prepass_alpha, ambient_light_disabled;
 
 uniform float Specular : hint_range(0.0, 1.0) = 0.5;
 uniform float Hardness : hint_range(1.0, 511.0, 1.0) = 50.0;
+uniform vec3 Color : source_color = vec3(1.0, 0.3, 0.0);
 
 vec3 reflectionVector(vec3 normal){
 	normal *= vec3(1,-1,-1);
@@ -28,7 +29,7 @@ void fragment() {
 
 	float density = (1.0 - dot(NORMAL, vec3(0.0, 0.0, 1.0)));
 
-	ALBEDO = vec3(1.0, 0.3, 0.0);
+	ALBEDO = Color;
 
 	//vec3 center = (vec4(sample, 0.0) * saturationMatrix(1.0)).rgb;
 	//vec3 edge = vec3(1.0, 3.0, 0.0) * sample;
@@ -49,6 +50,6 @@ void light() {
 	float specular = max(pow(dot(H, NORMAL), Hardness), 0.0) * Specular;
 	vec3 finalSpecular = (vec3(specular) * LIGHT_COLOR / PI) * max(1.0 - pow(1.0 - NdotL, 20), 0.0);
 
-	SPECULAR_LIGHT = finalSpecular + SPECULAR_LIGHT;
-	DIFFUSE_LIGHT = ATTENUATION * LIGHT_COLOR / PI;
+	SPECULAR_LIGHT += finalSpecular;
+	DIFFUSE_LIGHT += ATTENUATION * LIGHT_COLOR / PI;
 }

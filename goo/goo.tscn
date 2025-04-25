@@ -9,6 +9,7 @@ render_priority = 0
 shader = ExtResource("1_vkqr0")
 shader_parameter/Specular = 0.71
 shader_parameter/Hardness = 121.0
+shader_parameter/Color = Color(1, 0.470588, 0, 1)
 shader_parameter/refraction = 60000.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_vkqr0"]
