@@ -12,16 +12,15 @@ uniform float refraction : hint_range(10000, 100000) = 60000.0;
 
 // https://x.com/PBtmm/status/1263687803210215427
 
-void vertex() {
+mat3 rotation_from_cam_translation(mat4 view_matrix, vec3 camera_position_world, vec3 node_position_world) {
 
-}
+	// I think we would get a better result by using
+	// the pixel pos instead of the node pos, but w/e
 
-void fragment() {
+	vec3 cam_offset_view_dir = (view_matrix * vec4(normalize(camera_position_world - node_position_world), 0.0)).xyz;
 
-	vec3 cam_offset_view_dir = (VIEW_MATRIX * vec4(normalize(CAMERA_POSITION_WORLD - NODE_POSITION_WORLD), 0.0)).xyz;
-
-	vec3 dir1 = vec3(0, 0, 1);
-	vec3 dir2 = cam_offset_view_dir;
+	vec3 dir1 = vec3(0, 0, 1);       // source
+	vec3 dir2 = cam_offset_view_dir; // target
 	vec3 axis = normalize(cross(dir1, dir2));
 
 	float cos_angle = dot(dir1, dir2);
@@ -31,33 +30,38 @@ void fragment() {
 	// Rodrigues' Rotation Formula
 	mat3 rot_matrix = mat3(
 		vec3(
-	    cos_angle + axis.x * axis.x * (1.0 - cos_angle),
-	    axis.x * axis.y * (1.0 - cos_angle) - axis.z * sin_angle,
-	    axis.x * axis.z * (1.0 - cos_angle) + axis.y * sin_angle
+		    cos_angle + axis.x * axis.x * (1.0 - cos_angle),
+		    axis.x * axis.y * (1.0 - cos_angle) - axis.z * sin_angle,
+		    axis.x * axis.z * (1.0 - cos_angle) + axis.y * sin_angle
 		),
 		vec3(
-	    axis.y * axis.x * (1.0 - cos_angle) + axis.z * sin_angle,
-	    cos_angle + axis.y * axis.y * (1.0 - cos_angle),
-	    axis.y * axis.z * (1.0 - cos_angle) - axis.x * sin_angle
+		    axis.y * axis.x * (1.0 - cos_angle) + axis.z * sin_angle,
+		    cos_angle + axis.y * axis.y * (1.0 - cos_angle),
+		    axis.y * axis.z * (1.0 - cos_angle) - axis.x * sin_angle
 		),
 		vec3(
-	    axis.z * axis.x * (1.0 - cos_angle) - axis.y * sin_angle,
-	    axis.z * axis.y * (1.0 - cos_angle) + axis.x * sin_angle,
-	    cos_angle + axis.z * axis.z * (1.0 - cos_angle)
+		    axis.z * axis.x * (1.0 - cos_angle) - axis.y * sin_angle,
+		    axis.z * axis.y * (1.0 - cos_angle) + axis.x * sin_angle,
+		    cos_angle + axis.z * axis.z * (1.0 - cos_angle)
 		)
 	);
 
-    ALBEDO = rot_matrix * NORMAL;
+    return rot_matrix;
+}
 
-	//vec3 sample = textureLod(
-		//screen_texture,
-		//SCREEN_UV + vec2(-NORMAL.x * VIEWPORT_SIZE.y, NORMAL.y * VIEWPORT_SIZE.x) / refraction,
-		//0.0
-	//).rgb;
-//
-	//float density = (1.0 - dot(NORMAL, vec3(0.0, 0.0, 1.0)));
-//
-	//ALBEDO = mix(mix(sample * BaseColor, BaseColor, Opacity), HighlightColor, smoothstep(0.4, 0.7, density));
+void fragment() {
+
+	NORMAL = rotation_from_cam_translation(VIEW_MATRIX, CAMERA_POSITION_WORLD, NODE_POSITION_WORLD) * NORMAL;
+
+	vec3 sample = textureLod(
+		screen_texture,
+		SCREEN_UV + vec2(-NORMAL.x * VIEWPORT_SIZE.y, NORMAL.y * VIEWPORT_SIZE.x) / refraction,
+		0.0
+	).rgb;
+
+	float density = (1.0 - dot(NORMAL, vec3(0.0, 0.0, 1.0)));
+
+	ALBEDO = mix(mix(sample * BaseColor, BaseColor, Opacity), HighlightColor, smoothstep(0.4, 0.7, density));
 }
 
 void light() {
