@@ -7,9 +7,9 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vjgfk"]
 render_priority = 0
 shader = ExtResource("1_vkqr0")
-shader_parameter/redVal = 1.0
-shader_parameter/greenVal = 0.264
-shader_parameter/blueVal = 0.0
+shader_parameter/Specular = 0.71
+shader_parameter/Hardness = 121.0
+shader_parameter/refraction = 60000.0
 
 [sub_resource type="BoxMesh" id="BoxMesh_vkqr0"]
 
@@ -22,3 +22,6 @@ surface_material_override/0 = SubResource("ShaderMaterial_vjgfk")
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44606, 0, 0)
 mesh = SubResource("BoxMesh_vkqr0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.542617, 0.604363, -0.583362, 0, 0.694495, 0.719497, 0.83998, -0.390412, 0.376845, 0, 0, 1.44885)
