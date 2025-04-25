@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dbs4qe66uognq"]
 
-[ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://normal_blur.gdshader" id="1_xrnel"]
+[ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://2d_orb_liquid/normal_blur.gdshader" id="1_xrnel"]
 
 [resource]
 render_priority = 5

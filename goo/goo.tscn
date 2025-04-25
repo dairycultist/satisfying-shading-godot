@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://cs88gljk1wmdq"]
+
+[ext_resource type="Shader" uid="uid://dqo3k1xfyi423" path="res://goo/goo.gdshader" id="1_vkqr0"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_r6dcc"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vjgfk"]
+render_priority = 0
+shader = ExtResource("1_vkqr0")
+
+[node name="Node3D" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_r6dcc")
+surface_material_override/0 = SubResource("ShaderMaterial_vjgfk")
