@@ -31,7 +31,7 @@ void fragment() {
 
 	vec3 sample = textureLod(
 		screen_texture,
-		SCREEN_UV + vec2(NORMAL.x * VIEWPORT_SIZE.y, -NORMAL.y * VIEWPORT_SIZE.x) / 20000.0,
+		SCREEN_UV + vec2(-NORMAL.x * VIEWPORT_SIZE.y, NORMAL.y * VIEWPORT_SIZE.x) / 60000.0,
 		0.0
 	).rgb;
 
