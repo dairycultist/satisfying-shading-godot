@@ -7,8 +7,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vjgfk"]
 render_priority = 0
 shader = ExtResource("1_vkqr0")
-shader_parameter/Specular = 0.71
-shader_parameter/Hardness = 121.0
+shader_parameter/Specular = 0.24
+shader_parameter/Hardness = 347.0
 shader_parameter/Color = Color(1, 0.470588, 0, 1)
 shader_parameter/refraction = 60000.0
 
