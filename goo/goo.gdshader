@@ -2,7 +2,9 @@ shader_type spatial;
 
 uniform float Specular : hint_range(0.0, 1.0) = 0.5;
 uniform float Hardness : hint_range(1.0, 511.0, 1.0) = 50.0;
-uniform vec3 Color : source_color = vec3(1.0, 0.3, 0.0);
+uniform vec3 BaseColor : source_color = vec3(1.0, 0.5, 0.0);
+uniform vec3 HighlightColor : source_color = vec3(1.0, 0.9, 0.4);
+uniform float Opacity : hint_range(0.0, 1.0) = 0.2;
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
 
@@ -20,7 +22,7 @@ void fragment() {
 
 	float density = (1.0 - dot(NORMAL, vec3(0.0, 0.0, 1.0)));
 
-	ALBEDO = sample * Color;
+	ALBEDO = mix(mix(sample * BaseColor, BaseColor, Opacity), HighlightColor, smoothstep(0.4, 0.7, density));
 
 	//vec3 center = (vec4(sample, 0.0) * saturationMatrix(1.0)).rgb;
 	//vec3 edge = vec3(1.0, 3.0, 0.0) * sample;

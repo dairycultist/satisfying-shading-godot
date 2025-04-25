@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bfil61cgbggdk"]
+
+[ext_resource type="Shader" uid="uid://dqo3k1xfyi423" path="res://goo/goo.gdshader" id="1_cq1ve"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_cq1ve")
+shader_parameter/Specular = 0.24
+shader_parameter/Hardness = 347.0
+shader_parameter/BaseColor = Color(1, 0.5, 0, 1)
+shader_parameter/HighlightColor = Color(1, 0.9, 0.5, 1)
+shader_parameter/Opacity = 0.2
+shader_parameter/refraction = 60000.0
