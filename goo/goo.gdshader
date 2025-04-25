@@ -29,7 +29,11 @@ mat4 saturationMatrix( float _saturation ){
 
 void fragment() {
 
-	vec3 sample = textureLod(screen_texture, SCREEN_UV - NORMAL.xy / 50.0 / VIEWPORT_SIZE.x, 0.0).rgb;
+	vec3 sample = textureLod(
+		screen_texture,
+		SCREEN_UV + vec2(NORMAL.x * VIEWPORT_SIZE.y, -NORMAL.y * VIEWPORT_SIZE.x) / 20000.0,
+		0.0
+	).rgb;
 
 	ALBEDO = sample;
 
