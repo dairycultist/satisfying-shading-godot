@@ -1,6 +1,9 @@
 shader_type spatial;
+render_mode depth_draw_always, cull_disabled;
 
 uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+
+uniform sampler2D tex;
 
 uniform float Specular : hint_range(0.0, 1.0) = 0.5;
 uniform float Hardness : hint_range(1.0, 511.0, 1.0) = 50.0;
@@ -14,7 +17,7 @@ uniform float refraction : hint_range(10000, 100000) = 60000.0;
 
 mat3 rotation_from_cam_translation(mat4 view_matrix, vec3 camera_position_world, vec3 node_position_world) {
 
-	// I think we would get a better result by using
+	// we would get slightly more accurate result by using
 	// the pixel pos instead of the node pos, but w/e
 
 	vec3 cam_offset_view_dir = (view_matrix * vec4(normalize(camera_position_world - node_position_world), 0.0)).xyz;
@@ -53,13 +56,12 @@ void fragment() {
 
 	NORMAL = rotation_from_cam_translation(VIEW_MATRIX, CAMERA_POSITION_WORLD, NODE_POSITION_WORLD) * NORMAL;
 
-	vec3 sample = textureLod(
+	vec3 sample = texture(
 		screen_texture,
-		SCREEN_UV + vec2(-NORMAL.x * VIEWPORT_SIZE.y, NORMAL.y * VIEWPORT_SIZE.x) / refraction,
-		0.0
-	).rgb;
+		SCREEN_UV + vec2(-NORMAL.x * VIEWPORT_SIZE.y, NORMAL.y * VIEWPORT_SIZE.x) / refraction
+	).rgb + texture(tex, UV).rgb;
 
-	float density = (1.0 - dot(NORMAL, vec3(0.0, 0.0, 1.0)));
+	float density = 1.0 - dot(NORMAL, vec3(0.0, 0.0, 1.0));
 
 	ALBEDO = mix(mix(sample * BaseColor, BaseColor, Opacity), HighlightColor, smoothstep(0.4, 0.7, density));
 }
