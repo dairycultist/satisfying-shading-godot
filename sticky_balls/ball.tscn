@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://djvmup11ahmuv"]
 
-[ext_resource type="Material" uid="uid://dbs4qe66uognq" path="res://2d_orb_liquid/honey.tres" id="1_ombjd"]
-[ext_resource type="Shader" uid="uid://ibp7qiflnfgd" path="res://2d_orb_liquid/quad_sphere.gdshader" id="2_xs6gy"]
+[ext_resource type="Material" uid="uid://dbs4qe66uognq" path="res://sticky_balls/slime.tres" id="1_ombjd"]
+[ext_resource type="Shader" uid="uid://ibp7qiflnfgd" path="res://sticky_balls/quad_sphere.gdshader" id="2_xs6gy"]
 
 [sub_resource type="QuadMesh" id="QuadMesh_3253y"]
 subdivide_width = 1

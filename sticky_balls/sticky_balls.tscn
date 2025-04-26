@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bq25ied8dcalx"]
 
-[ext_resource type="Script" uid="uid://oiy3vb8hbk62" path="res://2d_orb_liquid/liquid_controller.gd" id="1_wcv53"]
+[ext_resource type="Script" uid="uid://oiy3vb8hbk62" path="res://sticky_balls/ball_spawner.gd" id="1_iyll8"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ulcgi"]
 size = Vector2(5, 5)
@@ -17,7 +17,7 @@ transform = Transform3D(1, 0, 0, 0, 0.650469, 0.759532, 0, -0.759532, 0.650469, 
 
 [node name="LiquidController" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-script = ExtResource("1_wcv53")
+script = ExtResource("1_iyll8")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 

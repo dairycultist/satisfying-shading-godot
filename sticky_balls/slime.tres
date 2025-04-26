@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://dbs4qe66uognq"]
 
-[ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://2d_orb_liquid/normal_blur.gdshader" id="1_xrnel"]
+[ext_resource type="Shader" uid="uid://hrcamu4pkatt" path="res://sticky_balls/normal_blur.gdshader" id="1_xrnel"]
 
 [resource]
 render_priority = 5
@@ -8,4 +8,4 @@ shader = ExtResource("1_xrnel")
 shader_parameter/SIGMA = 6.0
 shader_parameter/RESOLUTION = 1.0
 shader_parameter/BLUR_DIST_CUTOFF = 1.5
-shader_parameter/BASE_COLOR = Color(0.946883, 0.443472, 7.70092e-07, 1)
+shader_parameter/BASE_COLOR = Color(0, 0.734469, 0.265334, 1)
