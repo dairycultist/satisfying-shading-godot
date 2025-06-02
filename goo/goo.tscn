@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cs88gljk1wmdq"]
+[gd_scene load_steps=10 format=3 uid="uid://cs88gljk1wmdq"]
 
 [ext_resource type="Material" uid="uid://bfil61cgbggdk" path="res://goo/goo.tres" id="1_r6dcc"]
 [ext_resource type="ArrayMesh" uid="uid://inta1pdsmx0h" path="res://goo/blob.obj" id="2_r6dcc"]
 [ext_resource type="Texture2D" uid="uid://i3ygukhixnqj" path="res://goo/texture_diffuse.png" id="3_afwa0"]
 [ext_resource type="ArrayMesh" uid="uid://docggp0pinx28" path="res://goo/base.obj" id="3_vjgfk"]
+[ext_resource type="Shader" uid="uid://c3mvbtaorc6p1" path="res://goo/subpixel.gdshader" id="5_tp0si"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_r6dcc"]
 
@@ -11,6 +12,10 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tp0si"]
 albedo_texture = ExtResource("3_afwa0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d2wly"]
+shader = ExtResource("5_tp0si")
+shader_parameter/PIXEL_SIZE = 13.38
 
 [node name="Node3D" type="Node3D"]
 
@@ -40,3 +45,18 @@ mesh = ExtResource("3_vjgfk")
 transform = Transform3D(0.0765705, 0, -0.494102, 0, 0.5, 0, 0.494102, 0, 0.0765705, 1.70986, 0.49622, 0.252804)
 material_override = SubResource("StandardMaterial3D_tp0si")
 mesh = ExtResource("3_vjgfk")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+material = SubResource("ShaderMaterial_d2wly")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+size = Vector2i(1152, 648)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.736876, 0, -0.676028, 0, 1, 0, 0.676028, 0, 0.736876, 0.382285, 0.868077, 1.1773)
